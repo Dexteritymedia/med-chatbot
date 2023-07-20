@@ -51,6 +51,7 @@ Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
 Thought: I now know the final answer
 Final Answer: the final answer to the original input question"""
+
 SUFFIX = """Begin!
 
 Question: {input}
@@ -86,7 +87,7 @@ if prompt := st.chat_input(placeholder="Ask your question?"):
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 
-    llm = OpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, streaming=True)
+    llm = OpenAI(model_name="gpt-4", openai_api_key=openai_api_key, streaming=True)
     search = GoogleSerperAPIWrapper(serper_api_key=serper_api_key)
     tools = [
         Tool(
@@ -102,6 +103,7 @@ if prompt := st.chat_input(placeholder="Ask your question?"):
         agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
         handle_parsing_errors=True,
         verbose=False,
+        early_stopping_method="generate",
         agent_kwargs={
         	'prefix':PREFIX,
                 'format_instructions':FORMAT_INSTRUCTIONS,
