@@ -90,10 +90,15 @@ if prompt := st.chat_input(placeholder="Ask your question?"):
         st.stop()
     try:
         with st.spinner("Please wait..."):
-            llm = OpenAI(model_name="gpt-4", openai_api_key=openai_api_key, streaming=True)
+            llm = ChatOpenAI(model_name="gpt-4", openai_api_key=openai_api_key, streaming=True)
             
-            tool = AIPluginTool.from_plugin_url("https://scholar.mixerbox.com/.well-known/ai-plugin.json") #For Free and reliable academic search engine! Find research papers and get answers in an instant!
-
+            #tool = AIPluginTool.from_plugin_url("https://scholar.mixerbox.com/.well-known/ai-plugin.json") #For Free and reliable academic search engine! Find research papers and get answers in an instant!
+            #tool = AIPluginTool.from_plugin_url("https://scholar-ai.net/.well-known/ai-plugin.json")
+            
+            tool = AIPluginTool.from_plugin_url("https://nextpaperplugin--mengzhao1.repl.co/.well-known/ai-plugin.json")
+            #tool = AIPluginTool.from_plugin_url("https://txyz.ai/.well-known/ai-plugin.json") #To Effortlessly decipher, compare, and answer questions about research papers using a simple Arxiv ID.
+            #tool = AIPluginTool.from_plugin_url("https://scholarly.maila.ai/.well-known/ai-plugin.json") #Scholarly is an AI-powered search engine for exploring scientific literature.
+            
             #tool = AIPluginTool.from_plugin_url("https://www.klarna.com/.well-known/ai-plugin.json")
             #tool = AIPluginTool.from_plugin_url("https://api.storybird.ai/.well-known/ai-plugin.json") #Create beautiful, illustrated stories easily.
             #https://chatgpt.boolio.co.kr/.well-known/ai-plugin.json #The easiest way to analyze global stock values with the power of quantitative factor methodologies.
@@ -122,4 +127,4 @@ if prompt := st.chat_input(placeholder="Ask your question?"):
             st.session_state.messages.append({"role": "assistant", "content": response})
             st.write(response)
     except Exception as e:
-            st.error(f"Sorry, there seems to be an issue. Please try again {e}", icon="⚠️")
+            st.error(f"Sorry, there seems to be an issue. Please try again \n\n{e}", icon="⚠️")
