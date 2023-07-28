@@ -28,8 +28,8 @@ st.markdown("""
 .css-h5rgaw {
     visibility: hidden;
 }
-.css-14xtw13 e13qjvis0 {
-  visibility: hidden;
+.css-14xtw13 {
+  display: none;
 }
 </style>
 
