@@ -90,7 +90,7 @@ if prompt := st.chat_input(placeholder="Ask your question?"):
         st.stop()
     try:
         with st.spinner("Please wait..."):
-            llm = ChatOpenAI(model_name="gpt-4", openai_api_key=openai_api_key, streaming=True)
+            llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, streaming=True)
             
             #tool = AIPluginTool.from_plugin_url("https://scholar.mixerbox.com/.well-known/ai-plugin.json") #For Free and reliable academic search engine! Find research papers and get answers in an instant!
             #tool = AIPluginTool.from_plugin_url("https://scholar-ai.net/.well-known/ai-plugin.json")
