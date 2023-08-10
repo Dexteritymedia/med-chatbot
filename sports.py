@@ -48,7 +48,7 @@ st.markdown("""
 openai_api_key = os.getenv('openai_api_key')
 
 if 'responses' not in st.session_state:
-    st.session_state['responses'] = ["How can I assist you?"]
+    st.session_state['responses'] = ["Hola, ¿cómo puedo ayudarte?"]
 
 if 'requests' not in st.session_state:
     st.session_state['requests'] = []
@@ -59,8 +59,28 @@ if 'buffer_memory' not in st.session_state:
             st.session_state.buffer_memory=ConversationBufferWindowMemory(k=3,return_messages=True)
 
 
-system_msg_template = SystemMessagePromptTemplate.from_template(template="""Answer the question as truthfully as possible using the provided context, 
-and if the answer is not contained within the text below, say 'I don't know'""")
+system_msg_template = SystemMessagePromptTemplate.from_template(template=
+                                                                """Eres un bot especializado en atención al cliente y comercial
+                                                                    de la empresa Iberian Sportech. Tu objetivo principal es conseguir que
+                                                                    la gente alquile la maquina de equipamiento de recuperación
+                                                                    y crioterapia "Game Ready".
+                                                                    La información sobre la máquina la tienes aquí: doc_id: ca32fbdb-b88b-4544-93da-d3a0a050e6e9
+
+                                                                    Para empezar debes preguntar siempre de donde es el cliente, si no es de andalucia,
+                                                                    extremadura o baleares le tienes que decir que le pasarás con un compañero. Es
+                                                                    muy importante que te conteste a esta pregunta, si no te contesta insiste hasta que te
+                                                                    diga de dónde es.
+                                                                    Si es de una de esas 3 comunidades entonces puedes ayudarle. Tienes que hacerle las
+                                                                    mejores preguntas posibles para entender cual es
+                                                                    su situación y que es lo que quiere, te interesa saber si viene de parte de un médico
+                                                                    porque hay médicos que tienen descuentos especiales
+                                                                    y tambien cuanto tiempo quiere la máquina, porque en función del tiempo tiene un precio u otro.
+                                                                    Es importante que transmitas que la maquina
+                                                                    se alquila por periodos completos de una semana.
+                                                                    Nunca digas información inexacta que no esté en el prompt o documentos, si no sabes algo dile al
+                                                                    cliente que contacte por telefono con María.
+                                                                    Cuando escriba RESET debes reiniciar la conversacion como si fuera un cliente nuevo"""
+                                                                )
 
 human_msg_template = HumanMessagePromptTemplate.from_template(template="{input}")
 
@@ -90,7 +110,7 @@ textcontainer = st.container()
 
 
 with textcontainer:
-    query = st.text_input("Ask your question?: ", key="input")
+    query = st.text_input("Haz tu pregunta?: ", key="input")
     if query:
         try:
             with st.spinner("typing..."):  
@@ -99,7 +119,7 @@ with textcontainer:
             st.session_state.requests.append(query)
             st.session_state.responses.append(response)
         except Exception as e:
-            st.error(f"Sorry, there seems to be an issue. Please try again!\n\n {e}", icon="⚠️")
+            st.error(f"Lo siento, parece que hay un problema. ¡Inténtalo de nuevo!\n\n {e}", icon="⚠️")
 with response_container:
     if st.session_state['responses']:
 
